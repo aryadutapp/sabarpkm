@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+</head>
+<body>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="image-input" accept="image/*" />
+        <input type="submit" value="Upload" />
+    </form>
+
+    <div id="result-container"></div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('image', document.getElementById('image-input').files[0]);
+
+            try {
+                const response = await fetch('/api/process-image', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+                const resultContainer = document.getElementById('result-container');
+                resultContainer.innerHTML = `
+                    <h2>Original Image</h2>
+                    <img src="${result.originalImageUrl}" alt="Original Image" /><br>
+                    <h2>Result</h2>
+                    <img src="${result.processedImageUrl}" alt="Processed Image" /><br>
+                `;
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
