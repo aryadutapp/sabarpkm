@@ -1,0 +1,13 @@
+{
+  "name": "my-vercel-image-app",
+  "version": "1.0.0",
+  "description": "Image processing web app on Vercel",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel",
+    "start": "vercel"
+  },
+  "dependencies": {
+    "sharp": "^0.29.0"
+  }
+}
